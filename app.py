@@ -3,11 +3,11 @@ import pandas as pd
 import streamlit as st
 from pandas_profiling import ProfileReport
 from streamlit_pandas_profiling import st_profile_report
+from sklearn.datasets import load_boston
 
-df = pd.DataFrame(
-    np.random.rand(100, 5),
-    columns=['a', 'b', 'c', 'd', 'e']
-)
+boston = load_boston()
+
+df = pd.DataFrame(boston.data, columns=boston.feature_names)
 
 pr = ProfileReport(df, explorative=True)
 
