@@ -4,27 +4,28 @@ import streamlit as st
 
 from streamlit_echarts import JsCode
 from streamlit_echarts import st_echarts
+from pandas_profiling import ProfileReport
+from streamlit_pandas_profiling import st_profile_report
+from sklearn.datasets import load_boston
 
+boston = load_boston()
+
+df = pd.DataFrame(boston.data, columns=boston.feature_names)
+
+def st_pandas_profiling():
+    pr = ProfileReport(df, explorative=True)
+    st.title("Pandas Profiling in Streamlit")
+    st.write(df)
+    st_profile_report(pr)
 
 def main():
     PAGES = {
-        "Pandas Profiling": render_basic_line,
-        "Basic area chart": render_basic_area,
-        "Stacked area chart": render_stacked_area,
-        "Mixed line and bar": render_mixed_line_bar,
-        "Custom pie chart": render_custom_pie,
-        "Effect scatter chart": render_effect_scatter,
-        "Calendar heatmap": render_calendar_heatmap,
-        "Basic treemap": render_treemap,
-        "Datazoom": render_datazoom,
-        "Dataset": render_dataset,
-        "Map": render_map,
-        "Click event": render_event,
+        "Pandas Profiling": st_pandas_profiling
     }
 
-    st.title("Hello ECharts !")
-    st.sidebar.header("Configuration")
-    page = st.sidebar.selectbox("Choose an example", options=list(PAGES.keys()))
+    st.title("タイトル")
+    st.sidebar.header("ライブラリ")
+    page = st.sidebar.selectbox("Select Tools", options=list(PAGES.keys()))
     PAGES[page]()
 
 

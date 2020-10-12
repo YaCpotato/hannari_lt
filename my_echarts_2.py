@@ -5,7 +5,6 @@ import streamlit as st
 from streamlit_echarts import JsCode
 from streamlit_echarts import st_echarts
 
-
 def main():
     PAGES = {
         "Basic line chart": render_basic_line,
